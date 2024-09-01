@@ -1,19 +1,24 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { io } from 'socket.io-client'
 import './App.css'
 
+
 function App() {
+  const socket = useMemo(()=>io('http://localhost:3000'),[])
   const [message, setMessage] = useState('')
- const socket = io('http://localhost:3000')
+
   useEffect(()=>{
    socket.on('connect',()=>{
     console.log('Connected', socket.id)
     socket.on('welcome',(msg)=>{
       console.log(msg)
     })
-    return()=>{
-      socket.disconnect();
-    }
+    socket.on('recieve-message',(data)=>(
+      console.log(data)
+    ))
+    // return()=>{
+    //   socket.disconnect();
+    // }
    })
   },[]) 
   

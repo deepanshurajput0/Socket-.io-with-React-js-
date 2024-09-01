@@ -23,6 +23,7 @@ io.on('connection',(socket)=>{
 //   socket.broadcast.emit('welcome',`Welcome to the server ${socket.id}`)
    socket.on('message',(data)=>{
       console.log(data)
+      io.emit('receive-message',data)
    })
   socket.on('disconnect',()=>{
     console.log(`User disconnected `, socket.id)

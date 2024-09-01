@@ -20,7 +20,13 @@ app.use(cors())
 io.on('connection',(socket)=>{
   console.log("User Connected")
   console.log("Id",socket.id)
-  socket.emit('welcome','Welcome to the server')
+//   socket.broadcast.emit('welcome',`Welcome to the server ${socket.id}`)
+   socket.on('message',(data)=>{
+      console.log(data)
+   })
+  socket.on('disconnect',()=>{
+    console.log(`User disconnected `, socket.id)
+  })
 })
 
 
